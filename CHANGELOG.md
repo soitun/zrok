@@ -1,5 +1,71 @@
 # CHANGELOG
 
+## v0.4.35
+
+CHANGE: add example in ./etc/caddy to set X-Real-IP header to public share client IP
+
+## v0.4.34
+
+FEATURE: Linux service support for all private share modes (contribution from Stefan Adelbert @stefanadelbert)
+
+FIX: Fix for mixing limited and unlimited (-1) resource counts in the limits system (https://github.com/openziti/zrok/issues/680)
+
+FIX: Fix for sending multiple warning emails when a warning is applied to an account (https://github.com/openziti/zrok/issues/685)
+
+CHANGE: add Docker compose example for multiple share containers using the same enabled environment in [compose.override.yml](./docker/compose/zrok-public-reserved/compose.override.yml)
+
+CHANGE: bump many GitHub Actions that were using deprecated distributions of Node.js
+
+CHANGE: bump macOS runner for Node SDK from macos-11 to macos-12
+
+## v0.4.33
+
+FIX: Fix for log message in `Agent.CanAccessShare` (`"account '#%d' over frontends per share limit '%d'"`), which was not returning the correct limit value.
+
+FIX: Properly set `permission_mode` in `frontends` when createing a private frontend using `zrok access private` (https://github.com/openziti/zrok/issues/677)
+
+CHANGE: Updated `react-bootstrap` to version `2.10.2` (web console).
+
+CHANGE: Updated `@mui/material` to version `5.15.18` (web console).
+
+CHANGE: Updated `react` and `react-dom` to version `18.3.1` (web console).
+
+CHANGE: Updated `recharts` to version `2.12.7` (web console).
+
+CHANGE: Updated `react-router-dom` to version `6.23.1` (web console).
+
+CHANGE: Updated `axios` to version `1.7.2` for (node SDK).
+
+CHANGE: Updated `@openziti/ziti-sdk-nodejs` to version `0.17.0` (node SDK).
+
+## v0.4.32
+
+FEATURE: New permission mode support for public frontends. Open permission mode frontends are available to all users in the service instance. Closed permission mode frontends reference the new `frontend_grants` table that can be used to control which accounts are allowed to create shares using that frontend. `zrok admin create frontend` now supports `--closed` flag to create closed permission mode frontends (https://github.com/openziti/zrok/issues/539)
+
+FEATURE: New config `defaultFrontend` that specifies the default frontend to be used for an environment. Provides the default `--frontend` for `zrok share public` and `zrok reserve public` (https://github.com/openziti/zrok/issues/663)
+
+FEATURE: Resource count limits now include `share_frontends` to limit the number of frontends that are allowed to make connections to a share (https://github.com/openziti/zrok/issues/650)
+
+CHANGE: The frontend selection flag used by `zrok share public` and `zrok reserve public` has been changed from `--frontends` to `--frontend`
+
+FIX: use controller config spec v4 in the Docker instance
+
+## v0.4.31
+
+FEATURE: New "limits classes" limits implementation (https://github.com/openziti/zrok/issues/606). This new feature allows for extensive limits customization on a per-user basis, with fallback to the global defaults in the controller configuration.
+
+CHANGE: The controller configuration version has been updated to version `4` (`v: 4`) to support the new limits global configuration changes (https://github.com/openziti/zrok/issues/606).
+
+CHANGE: A new `ZROK_CTRL_CONFIG_VERSION` environment variable now exists to temporarily force the controller to assume a specific controller configuration version, regardless of what version exists in the file. This allows two different config versions to potentially be co-mingled in the same controller configuration file. Use with care (https://github.com/openziti/zrok/issues/648)
+
+CHANGE: Log messages that said `backend proxy endpoint` were clarified to say `backend target`.
+
+FIX: Correct the syntax for the Docker and Linux zrok-share "frontdoor" service that broke OAuth email address pattern matching.
+
+## v0.4.30
+
+FIX: Fix to the Node.js release process to properly support releasing on a tag.
+
 ## v0.4.29
 
 FIX: Backed out an incorrect change to support a FreeBSD port in progress.
