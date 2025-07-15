@@ -2,8 +2,8 @@ services:
   # set file ownership
   zrok-init:
     image: busybox
-    # matches uid:gid of "nobody" in zrok container image
-    command: chown -Rc 65534:65534 /mnt/
+    # matches uid:gid of "ziggy" in zrok container image
+    command: chown -Rc 2171:2171 /mnt/
     user: root
     volumes:
       - zrok_env:/mnt
@@ -18,7 +18,7 @@ services:
     volumes:
       - zrok_env:/mnt
     environment:
-      STATE_DIRECTORY: /mnt
+      HOME: /mnt
       ZROK_ENABLE_TOKEN:
       ZROK_API_ENDPOINT:
       ZROK_ENVIRONMENT_NAME:
@@ -35,10 +35,10 @@ services:
       - zrok_env:/mnt
     environment:
       # internal configuration
-      STATE_DIRECTORY: /mnt  # zrok homedir in container
+      HOME: /mnt  # zrok homedir in container
 
       # most relevant options
-      ZROK_UNIQUE_NAME:     # name is used to construct frontend domain name, e.g. "myapp" in "myapp.share.zrok.io"
+      ZROK_UNIQUE_NAME:     # name is used to construct frontend domain name, e.g. "toaster" in "toaster.share.zrok.io"; lowercase alphanumeric, between 4 and 32 characters in length
       ZROK_BACKEND_MODE:    # web, caddy, drive, proxy
       ZROK_TARGET:          # backend target, is a path in container filesystem unless proxy mode
       ZROK_INSECURE:        # "--insecure" if proxy target has unverifiable TLS server certificate
